@@ -1,22 +1,16 @@
-'use client'
-import { useEffect } from 'react';
-import io from 'socket.io-client';
+import { getServers } from "@/lib/actions/data-get-fns";
+import { createServer } from "@/lib/actions/data-mutt-fns"
+import ServersComp from "@/components/servers/servers-ui";
+import AddServerComp from "@/components/servers/server-add"
 
-const socket = io('http://localhost:4002');
-
-export default function Dashboard() {
-  useEffect(() => {
-    socket.on('connect', () => {
-      console.log('connected to backend');
-    });
-    return () => {
-      socket.off('connect');
-    };
-  }, []);
-
+export default async function DashboardPage() {
+  
+  const servers = await getServers();
+  
   return (
     <div>
-      <h1>Next.js and Socket.IO</h1>
+      <AddServerComp addServer={createServer}/>
+      <ServersComp data={servers}/>
     </div>
   );
 }

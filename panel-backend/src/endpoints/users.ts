@@ -16,7 +16,7 @@ const createNewUserSchema = Yup.object().shape({
 
 const router = Router();
 
-router.get('/users', validateAdminHeader, async (req, res) => {
+router.get('/', validateAdminHeader, async (req, res) => {
     const users = await getUsers();
 
     if (users) {
@@ -26,7 +26,7 @@ router.get('/users', validateAdminHeader, async (req, res) => {
     return res.status(500).json('Server error, please try again later')
 });
 
-router.post('/create-user', validateAdminHeader, async (req, res) => {
+router.post('/create', validateAdminHeader, async (req, res) => {
     const { id, username, password, role, note } = req.body
 
     const newUser = await handleUser(id, username, password, role, note);

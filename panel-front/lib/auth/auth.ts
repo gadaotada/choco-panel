@@ -10,6 +10,7 @@ const apiKey = process.env.API_FRONT_KEY || '';
 export const getUser = async (username: string, password: string): Promise<User | null> => {
     try {
         const payLoad = { username, password }
+        console.log(`${backendPoint}/login`)
         const res = await axios.post(`${backendPoint}/login`, payLoad, {
             headers: {
                 'choco-auth-key' : `${apiKey}`

@@ -1,20 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
 
 const apiKey = process.env.API_FRONT_KEY
-const adminKey = process.env.API_FRONT_KEY
+const adminKey = process.env.ADMIN_KEY
 
 export async function validateSecretHeader(req: Request, res: Response, next: NextFunction) {
     const secretHeader = req.get('choco-auth-key');
 
-    if (!secretHeader) {
+    if (!secretHeader || !apiKey) {
+       
         return res.status(401).send('Unauthorized'); 
     }
 
-    if (!apiKey) {
-        return res.status(500).send('Issue with auth server, please try again later')
-    }
-
     if (apiKey && secretHeader !== apiKey) {
+        
         return res.status(401).send('Unauthorized');
     }
 

@@ -1,7 +1,7 @@
 import mysql2 from 'mysql2/promise';
 
 const pool = mysql2.createPool({
-    host: process.env.HOST,
+    host: process.env.DB_HOST,
     user: process.env.USER_NAME,
     password: process.env.USER_PASSWORD,
     database: process.env.DB_NAME,

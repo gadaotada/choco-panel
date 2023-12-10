@@ -2,7 +2,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import crypto from 'crypto';
 import type { NextAuthOptions } from "next-auth";
 
-import { getUser } from '@/lib/database/auth';
+import { getUser } from '@/lib/auth/auth';
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -20,7 +20,7 @@ export const authOptions: NextAuthOptions = {
                 // hash the pass
                 const salt = process.env.GLOBAL_SALT || 'a-default-salt'
                 const hashedPassword = crypto.pbkdf2Sync(credentials?.password, salt, 10000, 64, 'sha256').toString('hex');
-
+                
                 const user = await getUser(credentials?.username, hashedPassword)
                 if (user) {
                     return {

@@ -11,10 +11,10 @@ const loginValidationSchema = Yup.object().shape({
 
 const router = Router();
 
-router.post('/login', async (req, res) => {
+router.post('/', async (req, res) => {
    try {
       const { username, password } = req.body;
-
+      
       const validation = validateData(loginValidationSchema, req.body);
 
       if (!validation.isValid) {

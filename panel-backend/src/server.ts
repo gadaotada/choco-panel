@@ -6,9 +6,12 @@ import path  from 'path';
 import dotenv from 'dotenv';
 import { Server } from 'socket.io';
 
-import { validateSecretHeader } from './validations';
+import { megaTestaBate } from './remote/connection'
 
-dotenv.config();
+const myenvPath = path.join(__dirname, '../.env');
+dotenv.config({ path: myenvPath });
+
+import { validateSecretHeader } from './validations';
 
 const app = express();
 
@@ -56,6 +59,7 @@ const io = new Server(server, {
 
 io.on('connection', (socket) => {
   console.log('a user connected');
+  megaTestaBate();
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
